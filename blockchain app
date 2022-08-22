@@ -1,0 +1,28 @@
+pragma solidity ^0.8.4;
+ 
+contract transaction {
+mapping(address => uint) balance;
+address owner;
+constructor() {
+owner = msg.sender;
+uint current = now;
+}
+ 
+function getBalance() public view returns(uint) {
+ return balance[msg.sender]; //to view how much the sender has
+}
+ 
+function verify(address recipient, address admin, uint amount, uint target) public {
+require(balance[msg.sender]>=amount);
+require(msg.sender != recipient || msg.sender == admin);
+require(balance[recipient]< target);
+require(now - current <= 172800);
+ _transfer(msg.sender, recipient, amount);
+}
+address from = owner;
+address to = recipient;
+balance[from] -= amount; balance[to] += amount;
+}
+ 
+ 
+}
